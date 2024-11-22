@@ -1,11 +1,14 @@
 import pygame
+import os
+
+
 pygame.init()
 
 from game import Game
 
 
 
-
+current_dir = os.path.dirname(__file__)
 pygame.display.set_caption("puissance 4")
 screen = pygame.display.set_mode((1080, 620))
 clock = pygame.time.Clock()
@@ -14,11 +17,12 @@ dt = 0.0
 gagner = False
 joue_ia = False
 equal = False
-
-logo = pygame.image.load("fond.jpg")
+fondPath = os.path.join(current_dir, "fond.jpg")
+logo = pygame.image.load(fondPath)
 logo = pygame.transform.scale(logo, (1080,620))
 
 game = Game(screen)  
+velocite = 0.0
 
 
 
@@ -68,16 +72,18 @@ while running:
         if game.pion_tombe:
             game.pion_lache.dessine(screen)
             game.pion_lache.pos_y+=velocite
-            velocite+=0.4
+            velocite+=0.6
             #pygame.time.delay(10)
             game.pion_lache.update_rect()
             if game.pion_lache.pos_y>screen.get_height()-40 or pygame.sprite.spritecollideany(game.pion_lache, game.all_pion):
                 if velocite>0:
                     velocite = -velocite/3 +0.5
                     if velocite < -3:
-                        pygame.mixer.Sound("pion.mp3").play()
+                        fallSoundPath = os.path.join(current_dir, "pion.mp3")
+                        pygame.mixer.Sound(fallSoundPath).play()
                     elif velocite < -0.5:
-                        pygame.mixer.Sound("pion_petit.mp3").play()
+                        fallSoundPath = os.path.join(current_dir, "pion_petit.mp3")
+                        pygame.mixer.Sound(fallSoundPath).play()
                 
                 if velocite < 0.5 and velocite >0:
                     game.pion_tombe = False

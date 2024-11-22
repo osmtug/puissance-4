@@ -1,4 +1,5 @@
 import pygame
+import os
 pygame.init()
 from typing import List
 
@@ -6,7 +7,7 @@ class Plateau(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
         self.place_total: List[List[int]] = [[],[],[],[],[],[]]
-        self.image = pygame.image.load("plateau.xcf")
+        self.image = pygame.image.load(os.path.join(os.path.dirname(__file__), "plateau.xcf"))
         self.image = pygame.transform.scale(self.image, (screen.get_width()*6 / 8 -200,screen.get_height()*4 / 5))
         
         for i in range(6):

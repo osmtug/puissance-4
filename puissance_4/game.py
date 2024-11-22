@@ -1,4 +1,5 @@
 import pygame
+import os
 pygame.init()
 import random
 
@@ -23,7 +24,8 @@ class Game(pygame.sprite.Sprite):
         self.current_pion = Pion(screen,couleur)
         
     def win(self,screen,color):
-        bg = pygame.image.load(f"{color}_victory.PNG")
+        victoryScreenPath = os.path.join(os.path.dirname(__file__), f"{color}_victory.PNG")
+        bg = pygame.image.load(victoryScreenPath)
         screen.blit(bg, (0,0))
         
         
@@ -92,9 +94,11 @@ class Game(pygame.sprite.Sprite):
             else :
                 self.change_pion(screen,"rouge")
             self.pion_tombe = True
-            pygame.mixer.Sound("button.mp3").play()
+            buttonSoundPath = os.path.join(os.path.dirname(__file__), "button.mp3")
+            pygame.mixer.Sound(buttonSoundPath).play()
         else:
-            pygame.mixer.Sound("error.mp3").play()
+            errorSoundPath = os.path.join(os.path.dirname(__file__), "error.mp3")
+            pygame.mixer.Sound(errorSoundPath).play()
         return gagner
     
     

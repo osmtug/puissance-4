@@ -1,4 +1,5 @@
 import pygame
+import os
 pygame.init()
 
 class Pion(pygame.sprite.Sprite):
@@ -8,13 +9,13 @@ class Pion(pygame.sprite.Sprite):
         self.pos_y = 70.0
         self.color = color
         self.rect = pygame.Rect(self.pos_x-40, self.pos_y-40, 40, 40)
-        self.image = pygame.image.load(f"pion_{color}.xcf")
+        self.image = pygame.image.load(os.path.join(os.path.dirname(__file__), f"pion_{color}.xcf"))
         self.image = pygame.transform.scale(self.image, (80,80))
-        #self.score = {
-         #   "horizontale" : 0,
-          #  "vertical" : 0,
-           # "diagonal_h" : 0,
-            #"diagonal_b" : 0}
+        # self.score = {
+        #     "horizontale" : 0,
+        #     "vertical" : 0,
+        #     "diagonal_h" : 0,
+        #     "diagonal_b" : 0}
         
     def move_right(self,dt,screen):
         if self.pos_x<screen.get_width()-250:
